@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SimuLang IDE + Simulonic 10-Quadrant Warp</title>
+  <style>
+    body {
+      font-family: monospace;
+      background: #1e1e1e;
+      color: #dcdcdc;
+      padding: 20px;
+    }
+    .canvas-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .canvas-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    canvas {
+      background: black;
+      border: 1px solid #00ffee;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .controls {
+      margin-top: 10px;
+      text-align: center;
+    }
+    .controls label {
+      margin: 0 10px;
+    }
+    .controls input {
+      vertical-align: middle;
+    }
+    button {
+      background: #007acc;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      margin: 10px 5px;
+      cursor: pointer;
+    }
+    .codebox { max-width: 800px; margin: 0 auto; }
+    .tabs { display: flex; border-bottom: 2px solid #444; margin-bottom: 10px; flex-wrap: wrap; }
+    .tab { padding: 10px 20px; cursor: pointer; background: #2d2d2d; margin-right: 5px; border-radius: 5px 5px 0 0; }
+    .tab.active { background: #007acc; color: white; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    textarea {
+      width: 100%; height: 300px; background: #252526; color: #dcdcdc;
+      font-family: monospace; border: 1px solid #333; padding: 10px;
+    }
+    .highlightPreview { background: #1e1e1e; border: 1px solid #444; padding: 10px; margin-top: 10px; white-space: pre-wrap; }
+    .token { display: inline; }
+    .token.keyword { color: #c586c0; }
+    .token.identifier { color: #9cdcfe; }
+    .token.number { color: #b5cea8; }
+    .token.string { color: #ce9178; }
+    .token.symbol { color: #d4d4d4; }
+    .token.sol { color: #ff6f00; font-weight: bold; }
+    .token.phase { color: #ff6f00; }
+    .token.attribute { color: #d7ba7d; }
+    pre { background: #2d2d2d; padding: 10px; border: 1px solid #444; margin-top: 20px; white-space: pre-wrap; }
+    #simulang-footer {
+      position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(30,30,30,0.8);
+      color: #bbbbbb; font-style: italic; font-size: 14px; text-align: center; padding: 10px 0; z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <h1>SimuLang Web IDE + Simulonic Warp Viewer</h1>
+
+  <!-- Include your IDE here -->
+  <div id="simulang-ide">    <h1>SimuLang Web IDE</h1>
+    <div class="codebox">
+        <div class="tabs">
+            <div class="tab active" data-tab="example1">Example 1: Infinity Loop</div>
+            <div class="tab" data-tab="example2">Example 2: Basic Constructs</div>
+            <div class="tab" data-tab="example3">Example 3: Martian Sol</div>
+            <div class="tab" data-tab="example4">Example 4: Universal Limit</div>
+            <div class="tab" data-tab="example5">Example 5: Many Worlds</div>
+            <div class="tab" data-tab="example6">Example 6: Cyborg</div>
+            <div class="tab" data-tab="example7">Example 7: Boundary Contradictions</div>
+            <div class="tab" data-tab="example8">Example 8: Evolving Contradictions</div>
+            <div class="tab" data-tab="example9">Example 9: Expanding Universe</div>
+        </div>
+
+        <div class="tab-content active" id="example1">
+            <textarea id="code-example1">coeternal light := ∞;
+
+posit varnothing nabla infty ds2(): {
+    octyl time := 1;
+    time := time + 1;
+    print(time);
+    intertillage [2∞..10∞] -> i: {
+        contradiction i -> o: {
+            print(i);
+            print(o);
+        }
+        time := i + time;
+        print(time);
+    }
+}</textarea>
+            <div id="highlightPreview-example1" class="highlightPreview"></div>
+        </div>
+
+        <div class="tab-content" id="example2">
+            <textarea id="code-example2">coeternal light := ∞;
+
+posit varnothing nabla infty ds2(): {
+    intertillage [0..∞] -> x: { print(x); }
+    delineator "boundary": { octyl time := 1; print(time); print(light); }
+    bifurcator ∞[2∞, 3∞] -> a(b, x): { print(a); print(b); print(x); }
+    octyl field_generator := 100;
+    equiangular field_generator == 100: { print("Simulonic Field Generator is on."); }
+    boundary [0..∞] -> frame: { print(frame); }
+    boundary [0..2∞] -> b_frame: { print(b_frame); }
+    boundary [0..3∞] -> c_frame: { print(c_frame); }
+    recur ds2(10∞);
+}</textarea>
+            <div id="highlightPreview-example2" class="highlightPreview"></div>
+        </div>
+
+        <div class="tab-content" id="example3">
+            <textarea id="code-example3">coeternal light := ∞;
+
+posit varnothing nabla infty ds2(): {
+    sol day intensity 0.9 {
+        print("Martian Daytime.");
+        intertillage [∞..∞+10] -> d: {
+            print(d);
+        }
+    }
+    sol night duration 12.3 {
+        print("Martian Nighttime.");
+        delineator "cycle begin": {
+            print("Cycle is beginning. Delineating...");
+        }
+    }
+    sol day duration 12.3 {
+        print("Martian Daytime.");
+        intertillage [∞..∞+20] -> d: {
+            print(d);
+        } 
+    }
+    sol night intensity 0.6 {
+        print("Martian Nighttime.");
+        delineator "cycle end": {
+            print("Cycle is ending. Delineating...");
+        }
+    }
+}</textarea>
+            <div id="highlightPreview-example3" class="highlightPreview"></div>
+        </div>
+
+        <div class="tab-content" id="example4">
+            <textarea id="code-example4">coeternal light := ∞;
+
+posit varnothing nabla infty ds2(): {
+    boundary [0..light] -> y: {
+        print(y.top);
+        boundary y.top -> yt: {
+            print(yt.top);
+            boundary yt.top -> yt2: {
+                print(yt2.top);
+            }
+        }
+        print(y.right);
+        boundary y.right -> yr: {
+            print(yr.top);
+            boundary yr.top -> yr2: {
+                print(yr2.top);
+            }
+        }
+        print(y.bottom);
+        boundary y.bottom -> yb: {
+            print(yb.bottom);
+            boundary yb.bottom -> yb2: {
+                print(yb2.bottom);
+            }
+        }
+        print(y.left);
+        boundary y.left -> yl: {
+            print(yl.top);
+            boundary yl.top -> yl2: {
+                print(yl2.top);
+            }
+        }
+    }
+    print(" ");
+    recur ds2(10∞);
+}</textarea>
+            <div id="highlightPreview-example4" class="highlightPreview"></div>
+        </div>
+
+        <div class="tab-content" id="example5">
+            <textarea id="code-example5">coeternal light := ∞;
+
+posit varnothing nabla infty ds2(): {
+    bifurcator 10[20, 30] -> a(b, c): {
+        bifurcator b[30, 40] -> x(y, z): {
+                 
+        }
+        bifurcator c[40, 50] -> d(e, f): {
+             
+        }
+    }
+    recur ds2(100∞);
+}</textarea>
+            <div id="highlightPreview-example5" class="highlightPreview"></div>
+        </div>
+
+        <div class="tab-content" id="example6">
+            <textarea id="code-example6">coeternal light := ∞;
+
+posit varnothing nabla infty ds2(): {
+
+    sol day intensity 1.0 {
+        print("☀️ Solar Crest Initiated.");
+        intertillage [∞..∞+5] -> crest: {
+            print(crest);
+        }
+        delineator "crest-field": {
+            octyl pulse := 3;
+            print(pulse);
+            print(light);
+        }
+    }
+
+    bifurcator ∞[2∞, 4∞] -> a(b, c): {
+        print(a); print(b); print(c);
+        
+        bifurcator b[4∞, 6∞] -> left(x, y): {
+            boundary [x..y] -> lnode: {
+                print("↙ Left Node at"); print(lnode.top);
+            }
+        }
+
+        bifurcator c[6∞, 8∞] -> right(m, n): {
+            boundary [m..n] -> rnode: {
+                print("↘ Right Node at"); print(rnode.top);
+            }
+        }
+    }
+
+    sol night duration 13.3 {
+        print("🌑 Lunar Sink Phase.");
+        delineator "collapse-threshold": {
+            intertillage [∞..∞+3] -> voidstep: {
+                print("Collapsing at"); print(voidstep);
+            }
+        }
+    }
+
+    boundary [0..light] -> f: {
+        print("🌐 Boundary Field Start:"); print(f.top);
+        boundary f.right -> f1: { print(f1.right); }
+        boundary f.bottom -> f2: { print(f2.bottom); }
+        boundary f.left -> f3: { print(f3.left); }
+    }
+
+    equiangular light == ∞: {
+        print("🧭 Equilibrium Achieved: Simulonic Constants Hold.");
+    }
+
+    print("🔁 Initiating recursive symbolic pass...");
+    recur ds2(100∞);
+}
+</textarea>
+            <div id="highlightPreview-example6" class="highlightPreview"></div>
+        </div>
+
+        <div class="tab-content" id="example7">
+            <textarea id="code-example7">coeternal light := ∞;
+
+posit varnothing nabla infty ds2(): {
+    print("Running boundary contradiction.");
+    boundary [0..light] -> y: {
+        print(y.top);
+        print(y.bottom);
+        contradiction (y.top, y.bottom) -> [fp, T]: {
+            print(fp);
+            print(T);
+        }
+        print(y.left);
+        print(y.right);
+        contradiction (y.left, y.right) -> [fp2, T2]: {
+            print(fp2);
+            print(T2);
+        } 
+    }
+    print(" ");
+    
+    print("Running contradiction boundary.");
+    contradiction ("The Universe has limits.", "The Universe does not have limits.") -> [focal, truth]: {
+        print(focal);
+        print(truth);
+        boundary [focal..truth] -> z: {
+            print(z);
+        }
+    }
+    print(" ");     
+}
+</textarea>
+            <div id="highlightPreview-example7" class="highlightPreview"></div>
+        </div>
+
+        <div class="tab-content" id="example8">
+            <textarea id="code-example8">coeternal light := ∞;
+octyl statement := "The multiverse exists.";
+
+posit varnothing nabla infty ds2(): {
+    contradiction statement -> c: {
+        print(c);
+        statement := c;
+    }
+    recur ds2(10∞);
+}
+</textarea>
+            <div id="highlightPreview-example8" class="highlightPreview"></div>
+        </div>
+
+        <div class="tab-content" id="example9">
+            <textarea id="code-example9">coeternal light := ∞;
+octyl focal := "The Universe ";
+octyl point := " has limits.";
+
+posit varnothing nabla infty ds2(): {
+    print("x---");
+    print(focal);
+    print(point);
+    print(". ");
+    print("   running boundary..");      
+    boundary [focal..point] -> t: {
+        print(t);
+        focal := t.top;
+        point := t.bottom;
+    }
+    recur ds2(10∞);
+}
+</textarea>
+            <div id="highlightPreview-example9" class="highlightPreview"></div>
+        </div>
+
+        <div class="buttons">
+            <button onclick="compileCode()">Compile Only</button>
+            <button onclick="runCode()">Run</button>
+            <button onclick="stopCode()">Stop</button>
+        </div>
+        <pre id="output"></pre>
+    </div>
+
+    <script>
+        let outputInterval = null;
+
+        // Tab switching logic
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+                highlightAllPreviews();
+            });
+        });
+
+        function getActiveCode() {
+            const activeTab = document.querySelector('.tab-content.active textarea');
+            return activeTab ? activeTab.value : '';
+        }
+
+        async function compileCode() {
+            const code = getActiveCode();
+            const output = document.getElementById("output");
+            output.textContent = "Compiling...\n";
+            try {
+                const response = await fetch('/compile', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code })
+                });
+                const result = await response.json();
+                output.textContent = result.output || ('Error: ' + result.error + '\n');
+            } catch (e) {
+                output.textContent = 'Error: Network issue or server error\n';
+            }
+        }
+
+        async function runCode() {
+            const code = getActiveCode();
+            const output = document.getElementById("output");
+            output.textContent = "Executing...\n";
+            try {
+                const response = await fetch('/run', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code })
+                });
+                const result = await response.json();
+                output.textContent = result.output;
+                startOutputLoop();
+            } catch (e) {
+                output.textContent = 'Error: Failed to start execution\n';
+            }
+        }
+
+        async function stopCode() {
+            const output = document.getElementById("output");
+            try {
+                const response = await fetch('/stop', { method: 'POST' });
+                const result = await response.json();
+                output.textContent += result.status;
+                if (outputInterval) {
+                    clearInterval(outputInterval);
+                    outputInterval = null;
+                }
+            } catch (e) {
+                output.textContent += '\nError: Failed to stop execution';
+            }
+        }
+
+        function startOutputLoop() {
+            if (outputInterval) clearInterval(outputInterval);
+            outputInterval = setInterval(async () => {
+                try {
+                    const res = await fetch('/fetch_output');
+                    const data = await res.json();
+                    document.getElementById("output").textContent = data.output;
+                    if (data.done) {
+                        clearInterval(outputInterval);
+                        outputInterval = null;
+                        document.getElementById("output").textContent += '\n✅ Execution complete.';
+                    }
+                } catch (e) {
+                    document.getElementById("output").textContent += '\nError: Output fetch failed';
+                    clearInterval(outputInterval);
+                    outputInterval = null;
+                }
+            }, 500);
+        }
+
+        // --- Highlighting logic ---
+        function tokenize(code) {
+            // Dummy tokenizer: Replace this with your real one
+            const words = code.split(/(\s+|[^a-zA-Z0-9_])/).filter(Boolean);
+            return words.map(word => {
+                if (/^\d/.test(word)) return ['NUMBER', word];
+                if (/^".*"$/.test(word)) return ['STRING', word];
+                if (word === 'coeternal' || word === 'posit' || word === 'varnothing' || word === 'nabla' || word === 'infty' || word === 'octyl' || word === 'intertillage' || word === 'print' || word === 'equiangular') return ['KEYWORD', word];
+                if (word === 'sol') return ['SOL', word];
+                if (word === 'day' || word === 'night') return ['PHASE', word];
+                if (word === 'intensity' || word === 'duration') return ['ATTRIBUTE', word];
+                if (/[\(\)\{\}\[\]:=.,+*/-]/.test(word)) return ['SYMBOL', word];
+                return ['IDENTIFIER', word];
+            });
+        }
+
+        function highlightPreview(textareaId, previewId) {
+            const textarea = document.getElementById(textareaId);
+            const preview = document.getElementById(previewId);
+            const tokens = tokenize(textarea.value);
+            preview.innerHTML = tokens.map(([type, value]) => {
+                let className = 'token';
+                if (type === 'KEYWORD') className += ' keyword';
+                else if (type === 'IDENTIFIER') className += ' identifier';
+                else if (type === 'NUMBER') className += ' number';
+                else if (type === 'STRING') className += ' string';
+                else if (type === 'SYMBOL') className += ' symbol';
+                else if (type === 'SOL') className += ' sol';
+                else if (type === 'PHASE') className += ' phase';
+                else if (type === 'ATTRIBUTE') className += ' attribute';
+                return `<span class="${className}">${value}</span>`;
+            }).join('');
+        }
+
+        function highlightAllPreviews() {
+            highlightPreview("code-example1", "highlightPreview-example1");
+            highlightPreview("code-example2", "highlightPreview-example2");
+            highlightPreview("code-example3", "highlightPreview-example3");
+            highlightPreview("code-example4", "highlightPreview-example4");
+            highlightPreview("code-example5", "highlightPreview-example5");
+            highlightPreview("code-example6", "highlightPreview-example6");
+            highlightPreview("code-example7", "highlightPreview-example7");
+            highlightPreview("code-example8", "highlightPreview-example8");
+            highlightPreview("code-example9", "highlightPreview-example9");
+        }
+
+        // Initialize preview highlighting on load
+        window.addEventListener('load', highlightAllPreviews);
+    </script>
+
+    <div id="simulang-footer">
+        Handcrafted by Hrishi Mukherjee for Infinite Set Problems in AGI and ASI. Copyright Hrishi Mukherjee Horizons 2025.
+    </div></div>
+
+  <h2>Simulonic 10-Quadrant Rendering</h2>
+  <div class="controls">
+    <label>Amplitude: <input type="range" id="ampSlider" min="0" max="20" value="8"></label>
+    <label>Frequency: <input type="range" id="freqSlider" min="1" max="10" value="3"></label>
+    <label>Rings: <input type="range" id="ringSlider" min="3" max="20" value="12"></label>
+    <label>Warp Distance: <input type="range" id="distanceSlider" min="0" max="100" value="50"></label><br>
+    <button id="modeToggle">Toggle Warp Mode 🌌</button>
+    <button id="chronoReindex">Reindex Through Chrono-Lattice ⏳</button>
+  </div>
+
+  <div class="canvas-wrapper" id="canvasGrid"></div>
+
+  <div id="simulang-footer">
+    Handcrafted by Hrishi Mukherjee for Infinite Set Problems in AGI and ASI. Copyright Hrishi Mukherjee Horizons 2025.
+  </div>
+
+  <script>
+    const canvasGrid = document.getElementById('canvasGrid');
+    const ampSlider = document.getElementById('ampSlider');
+    const freqSlider = document.getElementById('freqSlider');
+    const ringSlider = document.getElementById('ringSlider');
+    const distanceSlider = document.getElementById('distanceSlider');
+    const toggleBtn = document.getElementById('modeToggle');
+    const chronoBtn = document.getElementById('chronoReindex');
+
+    let warpMode = false;
+    let chronoTransition = false;
+    let chronoProgress = 0;
+    let chronoSteps = 100;
+    let chronoTarget = 0;
+    let frame = 0;
+    const renderers = [];
+
+    function createRenderer(label, isChrono) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'canvas-block';
+      const title = document.createElement('h4');
+      title.textContent = label;
+      const canvas = document.createElement('canvas');
+      canvas.width = 250; canvas.height = 250;
+      const ctx = canvas.getContext('2d');
+      wrapper.appendChild(title);
+      wrapper.appendChild(canvas);
+      canvasGrid.appendChild(wrapper);
+      return { ctx, canvas, rings: [], isChrono };
+    }
+
+    for (let i = 1; i <= 5; i++) renderers.push(createRenderer(`Original Core ${i}`, false));
+    for (let i = 1; i <= 5; i++) renderers.push(createRenderer(`Chrono-Reindexed ${i}`, true));
+
+    function generateRings(n) {
+      const maxRadius = 100;
+      return Array.from({ length: n }, (_, i) => ({
+        baseRadius: ((i + 1) / n) * maxRadius,
+        currentRadius: ((i + 1) / n) * maxRadius,
+        angle: 0,
+        speed: (i % 2 === 0 ? 1 : -1) * (0.01 + i * 0.002),
+        baseSpeed: (i % 2 === 0 ? 1 : -1) * (0.01 + i * 0.002),
+        color: `hsl(${(i * 30) % 360}, 100%, 50%)`,
+        brightness: 50
+      }));
+    }
+
+    function drawCore(ctx, x, y) {
+      ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2);
+      ctx.fillStyle = 'white'; ctx.fill();
+    }
+
+    function drawRing(ctx, ring, frame, amp, freq, isWarped, isChronoCopy, chronoT) {
+      ctx.save(); ctx.translate(125, 125); ctx.rotate(ring.angle);
+      ctx.strokeStyle = `hsl(${parseInt(ring.color.match(/\d+/)[0])}, 100%, ${ring.brightness}%)`;
+      ctx.lineWidth = 1.5 + 1 * Math.sin(frame / 30 + ring.currentRadius / 50);
+      ctx.beginPath();
+      const segments = 150;
+      for (let i = 0; i <= segments; i++) {
+        const theta = (i / segments) * 2 * Math.PI;
+        let radius = ring.currentRadius;
+        let warpOriginal = amp * Math.sin(frame / 20 + theta * freq + radius / 20);
+        let warpFinal = warpOriginal * 1.5;
+        let appliedWarp = 0;
+        if (isWarped) appliedWarp = warpOriginal;
+        else if (isChronoCopy) appliedWarp = warpOriginal * (1 - chronoT) + warpFinal * chronoT;
+        radius += appliedWarp;
+        const x = radius * Math.cos(theta);
+        const y = radius * Math.sin(theta);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath(); ctx.stroke(); ctx.restore();
+    }
+
+    function animate() {
+      const amp = parseFloat(ampSlider.value);
+      const freq = parseFloat(freqSlider.value);
+      const count = parseInt(ringSlider.value);
+      let chronoT = 0;
+      if (chronoTransition && chronoProgress <= chronoSteps) {
+        chronoT = chronoProgress / chronoSteps;
+        const d = chronoTarget / 100;
+        renderers.forEach(r => {
+          r.rings.forEach(ring => {
+            ring.brightness = 50 + 30 * chronoT * d;
+            ring.speed = ring.baseSpeed * (1 + chronoT * d);
+            ring.currentRadius = ring.baseRadius * (1 + 0.1 * chronoT * d);
+          });
+        });
+        chronoProgress++;
+        if (chronoProgress >= chronoSteps) chronoTransition = false;
+      } else chronoT = 1;
+
+      renderers.forEach(renderer => {
+        const ctx = renderer.ctx;
+        ctx.clearRect(0, 0, 250, 250);
+        if (renderer.rings.length !== count) {
+          renderer.rings = generateRings(count);
+        }
+        renderer.rings.forEach(ring => {
+          ring.angle += ring.speed;
+          drawRing(ctx, ring, frame, amp, freq, warpMode && !renderer.isChrono, renderer.isChrono, chronoT);
+        });
+        drawCore(ctx, 125, 125);
+      });
+
+      frame++;
+      requestAnimationFrame(animate);
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      warpMode = !warpMode;
+      toggleBtn.textContent = warpMode ? 'Toggle Static Mode 🔁' : 'Toggle Warp Mode 🌌';
+    });
+
+    chronoBtn.addEventListener('click', () => {
+      chronoTarget = parseInt(distanceSlider.value);
+      chronoSteps = Math.max(30, chronoTarget);
+      chronoTransition = true;
+      chronoProgress = 0;
+    });
+
+    animate();
+  </script>
+</body>
+</html>
