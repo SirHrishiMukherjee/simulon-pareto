@@ -76,9 +76,17 @@
 </head>
 <body>
   <h1>SimuLang Web IDE + Simulonic Warp Viewer</h1>
+  <div class="controls">
+    <label>Amplitude: <input type="range" id="ampSlider" min="0" max="20" value="8"></label>
+    <label>Frequency: <input type="range" id="freqSlider" min="1" max="10" value="3"></label>
+    <label>Rings: <input type="range" id="ringSlider" min="3" max="20" value="12"></label>
+    <label>Warp Distance: <input type="range" id="distanceSlider" min="0" max="100" value="50"></label><br>
+    <button id="modeToggle">Toggle Warp Mode 🌌</button>
+    <button id="chronoReindex">Reindex Through Chrono-Lattice ⏳</button>
+    <button id="visualizeBtn">Visualize from Code 🎮</button>
+  </div>
 
-  <!-- Include your IDE here -->
-  <div id="simulang-ide">    <h1>SimuLang Web IDE</h1>
+  <div class="canvas-wrapper" id="canvasGrid"><h1>SimuLang Web IDE</h1>
     <div class="codebox">
         <div class="tabs">
             <div class="tab active" data-tab="example1">Example 1: Infinity Loop</div>
@@ -500,18 +508,6 @@ posit varnothing nabla infty ds2(): {
         Handcrafted by Hrishi Mukherjee for Infinite Set Problems in AGI and ASI. Copyright Hrishi Mukherjee Horizons 2025.
     </div></div>
 
-  <h2>Simulonic 10-Quadrant Rendering</h2>
-  <div class="controls">
-    <label>Amplitude: <input type="range" id="ampSlider" min="0" max="20" value="8"></label>
-    <label>Frequency: <input type="range" id="freqSlider" min="1" max="10" value="3"></label>
-    <label>Rings: <input type="range" id="ringSlider" min="3" max="20" value="12"></label>
-    <label>Warp Distance: <input type="range" id="distanceSlider" min="0" max="100" value="50"></label><br>
-    <button id="modeToggle">Toggle Warp Mode 🌌</button>
-    <button id="chronoReindex">Reindex Through Chrono-Lattice ⏳</button>
-  </div>
-
-  <div class="canvas-wrapper" id="canvasGrid"></div>
-
   <div id="simulang-footer">
     Handcrafted by Hrishi Mukherjee for Infinite Set Problems in AGI and ASI. Copyright Hrishi Mukherjee Horizons 2025.
   </div>
@@ -524,6 +520,7 @@ posit varnothing nabla infty ds2(): {
     const distanceSlider = document.getElementById('distanceSlider');
     const toggleBtn = document.getElementById('modeToggle');
     const chronoBtn = document.getElementById('chronoReindex');
+    const visualizeBtn = document.getElementById('visualizeBtn');
 
     let warpMode = false;
     let chronoTransition = false;
@@ -531,6 +528,10 @@ posit varnothing nabla infty ds2(): {
     let chronoSteps = 100;
     let chronoTarget = 0;
     let frame = 0;
+    let frameSpeed = 1;
+    let brightnessFactor = 1;
+    let contradictionEffect = false;
+
     const renderers = [];
 
     function createRenderer(label, isChrono) {
@@ -570,7 +571,7 @@ posit varnothing nabla infty ds2(): {
 
     function drawRing(ctx, ring, frame, amp, freq, isWarped, isChronoCopy, chronoT) {
       ctx.save(); ctx.translate(125, 125); ctx.rotate(ring.angle);
-      ctx.strokeStyle = `hsl(${parseInt(ring.color.match(/\d+/)[0])}, 100%, ${ring.brightness}%)`;
+      ctx.strokeStyle = `hsl(${parseInt(ring.color.match(/\d+/)[0])}, 100%, ${ring.brightness * brightnessFactor}%)`;
       ctx.lineWidth = 1.5 + 1 * Math.sin(frame / 30 + ring.currentRadius / 50);
       ctx.beginPath();
       const segments = 150;
@@ -617,15 +618,52 @@ posit varnothing nabla infty ds2(): {
           renderer.rings = generateRings(count);
         }
         renderer.rings.forEach(ring => {
-          ring.angle += ring.speed;
+          if (contradictionEffect) ring.angle += Math.random() * 0.05;
+          else ring.angle += ring.speed;
           drawRing(ctx, ring, frame, amp, freq, warpMode && !renderer.isChrono, renderer.isChrono, chronoT);
         });
         drawCore(ctx, 125, 125);
       });
 
-      frame++;
+      frame += frameSpeed;
       requestAnimationFrame(animate);
     }
+
+    function getActiveCode() {
+      const activeTab = document.querySelector('.tab-content.active textarea');
+      return activeTab ? activeTab.value : '';
+    }
+
+    function extractVisualParams(code) {
+      const params = {
+        lightInfinite: false,
+        frameSpeed: 1,
+        ringCount: 10,
+        brightnessFactor: 1,
+        warpAmplitude: 5,
+        contradictionEffect: false
+      };
+      if (/coeternal\s+light\s*:=\s*∞/.test(code)) params.lightInfinite = true;
+      const timeMatch = code.match(/octyl\s+time\s*:=\s*(\d+)/);
+      if (timeMatch) params.frameSpeed = parseInt(timeMatch[1]);
+      const interMatch = code.match(/intertillage\s*\[\s*(\d+)∞?\s*\.\.\s*(\d+)∞?\s*\]/);
+      if (interMatch) params.ringCount = parseInt(interMatch[2]) - parseInt(interMatch[1]);
+      const intensityMatch = code.match(/sol\s+day\s+intensity\s+([0-9.]+)/);
+      if (intensityMatch) params.brightnessFactor = parseFloat(intensityMatch[1]) * 2;
+      if (/contradiction/.test(code)) params.contradictionEffect = true;
+      return params;
+    }
+
+    visualizeBtn.addEventListener('click', () => {
+      const code = getActiveCode();
+      const params = extractVisualParams(code);
+      warpMode = params.lightInfinite;
+      frameSpeed = params.frameSpeed;
+      ringSlider.value = params.ringCount;
+      ampSlider.value = params.warpAmplitude;
+      brightnessFactor = params.brightnessFactor;
+      contradictionEffect = params.contradictionEffect;
+    });
 
     toggleBtn.addEventListener('click', () => {
       warpMode = !warpMode;
